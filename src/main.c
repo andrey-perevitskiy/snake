@@ -1,17 +1,20 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <stdbool.h>
 #include <unistd.h>
 #include <ncurses.h>
-
+#include "snake.h"
+#include "snake-const.h"
+#include "food.h"
 #include "board.h"
 #include "event.h"
-#include "snake.h"
 
-int main(void)
+int
+main (void)
 {
-    SCREEN *scr = newterm(NULL, stdout, stdin);
-    struct snake *s;
-    struct food *f;
+    SCREEN * scr = newterm(NULL, stdout, stdin);
+    struct snake * s;
+    struct food * f;
     int key;
 
     if (has_colors()) {
@@ -27,8 +30,7 @@ int main(void)
         init_pair(8, COLOR_WHITE, COLOR_BLACK);
     }
     else {
-        printf("The your terminal isn't supports the colors.\n");
-
+        printf("Your terminal does not support colors\n");
         getch();
     }
 
@@ -61,7 +63,6 @@ int main(void)
         if (snake_check_collide_board(s) ||
             snake_check_collide_self(s)) {
             event_lose();
-
             break;
         }
 
@@ -72,7 +73,6 @@ int main(void)
 
         if (snake_check_max_length(s)) {
             event_win();
-
             break;
         }
 

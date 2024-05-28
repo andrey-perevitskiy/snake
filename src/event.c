@@ -1,19 +1,20 @@
+#include <ncurses.h>
 #include "event.h"
 
 bool
-event_check_exit(int key)
+event_check_exit (int key)
 {
     return key == KEY_ESC && getch() == -1;
 }
 
 void
-event_lose(void)
+event_lose (void)
 {
 
 }
 
 void
-event_win(void)
+event_win (void)
 {
 
 }

@@ -1,7 +1,9 @@
+#include <unistd.h>
+#include <ncurses.h>
 #include "board.h"
 
 void
-board_draw(void)
+board_draw (void)
 {
     int i;
 
@@ -11,7 +13,6 @@ board_draw(void)
     for (i = BOARD_LEFT; i < (BOARD_RIGHT + 1); i++) {
         mvaddch(BOARD_TOP, i, BOARD_SYM);
         mvaddch(BOARD_BOTTOM, i, BOARD_SYM);
-
         refresh();
         usleep(10000);
     }
@@ -20,7 +21,6 @@ board_draw(void)
     for (i = BOARD_TOP; i < (BOARD_BOTTOM + 1); i++) {
         mvaddch(i, BOARD_LEFT, BOARD_SYM);
         mvaddch(i, BOARD_RIGHT, BOARD_SYM);
-
         refresh();
         usleep(10000);
     }

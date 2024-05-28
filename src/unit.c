@@ -1,27 +1,28 @@
+#include <ncurses.h>
 #include "unit.h"
 
 void
-unit_set_prev(struct unit *u, int px, int py)
+unit_set_prev (struct unit * u, int px, int py)
 {
     u->px = px;
     u->py = py;
 }
 
 void
-unit_set_dir(struct unit *u, int dir)
+unit_set_dir (struct unit * u, int dir)
 {
     u->dir = dir;
 }
 
 void
-unit_set_pos(struct unit *u, int x, int y)
+unit_set_pos (struct unit * u, int x, int y)
 {
     u->x = x;
     u->y = y;
 }
 
 void
-unit_follow_to_unit(struct unit *u1, struct unit *u2)
+unit_follow_to_unit (struct unit * u1, struct unit * u2)
 {
     if (u2->dir == DIR_LEFT) {
         u1->x = u2->x + 1;
@@ -45,7 +46,7 @@ unit_follow_to_unit(struct unit *u1, struct unit *u2)
 }
 
 void
-unit_move(struct unit *u)
+unit_move (struct unit * u)
 {
     if (u->dir == DIR_LEFT)
         u->x--;
@@ -61,7 +62,7 @@ unit_move(struct unit *u)
 }
 
 void
-unit_draw(struct unit *u)
+unit_draw (struct unit * u)
 {
     attron(COLOR_PAIR(u->color));
     mvaddch(u->y, u->x, u->c);
@@ -69,7 +70,7 @@ unit_draw(struct unit *u)
 }
 
 void
-unit_refresh_dir(struct unit *u, int key)
+unit_refresh_dir (struct unit * u, int key)
 {
     if (key == KEY_LEFT && u->py != u->y)
         u->dir = DIR_LEFT;

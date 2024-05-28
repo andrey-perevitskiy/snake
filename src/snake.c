@@ -1,9 +1,14 @@
+#include <stdlib.h>
+#include <ncurses.h>
 #include "snake.h"
+#include "snake-const.h"
+#include "board.h"
+#include "food.h"
 
 struct snake *
-snake_init(void)
+snake_init (void)
 {
-    struct snake *s = malloc(sizeof(struct snake));
+    struct snake * s = malloc(sizeof(struct snake));
     int i;
 
     s->u = malloc(sizeof(struct unit) * SNAKE_MAX_LENGTH);
@@ -31,7 +36,7 @@ snake_init(void)
 }
 
 void
-snake_refresh_dir(struct snake *s, int key)
+snake_refresh_dir (struct snake * s, int key)
 {
     int i;
 
@@ -40,7 +45,7 @@ snake_refresh_dir(struct snake *s, int key)
 }
 
 void
-snake_refresh_head(struct snake *s)
+snake_refresh_head (struct snake * s)
 {
     if (s->u[0].dir == DIR_LEFT)
         s->u[0].c = '<';
@@ -56,7 +61,7 @@ snake_refresh_head(struct snake *s)
 }
 
 void
-snake_draw(struct snake *s)
+snake_draw (struct snake * s)
 {
     int i;
 
@@ -65,7 +70,7 @@ snake_draw(struct snake *s)
 }
 
 void
-snake_move(struct snake *s)
+snake_move (struct snake * s)
 {
     int i;
 
@@ -82,33 +87,32 @@ snake_move(struct snake *s)
 }
 
 void
-snake_erase_tail_end(struct snake *s)
+snake_erase_tail_end (struct snake * s)
 {
     mvaddch(s->u[s->len - 1].y, s->u[s->len - 1].x, ' ');
 }
 
 bool
-snake_check_collide_self(struct snake *s)
+snake_check_collide_self (struct snake * s)
 {
     int i;
 
-    for (i = 1; i < s->len; i++) {
+    for (i = 1; i < s->len; i++)
         if (s->u[i].x == s->u[0].x && s->u[i].y == s->u[0].y)
             return true;
-    }
 
     return false;
 }
 
 bool
-snake_check_collide_board(struct snake *s)
+snake_check_collide_board (struct snake * s)
 {
     return s->u[0].x == BOARD_LEFT || s->u[0].x == BOARD_RIGHT ||
         s->u[0].y == BOARD_TOP || s->u[0].y == BOARD_BOTTOM;
 }
 
 void
-snake_check_collide_food(struct snake *s, struct food *f)
+snake_check_collide_food (struct snake * s, struct food * f)
 {
     if (s->u[0].x == f->x && s->u[0].y == f->y) {
         s->len++;
@@ -119,7 +123,7 @@ snake_check_collide_food(struct snake *s, struct food *f)
 }
 
 bool
-snake_check_max_length(struct snake *s)
+snake_check_max_length (struct snake * s)
 {
     return s->len == SNAKE_MAX_LENGTH;
 }
